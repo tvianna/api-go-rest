@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/tvianna/api-go-rest/middleware"
 	"github.com/gorilla/mux"
 	"github.com/tvianna/api-go-rest/controllers"
 	"log"
@@ -9,6 +10,7 @@ import (
 
 func HandleRequest(){
 	r := mux.NewRouter()
+	r.Use(middleware.ContentTypeMiddleware)
 	r.HandleFunc("/", controllers.Home)
 	r.HandleFunc("/api/personalidades", controllers.TodasPersonalidades).Methods("Get")
 	r.HandleFunc("/api/personalidades/{id}", controllers.RetornaUmaPersonalidade).Methods("Get")
