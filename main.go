@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/tvianna/api-go-rest/database"
 	"github.com/tvianna/api-go-rest/models"
 	"github.com/tvianna/api-go-rest/routes"
 
@@ -13,6 +14,7 @@ func main() {
 		{Id: 2, Nome: "Nome 2", Historia: "Historia 2"},
 	}
 
+	database.ConectaComBancoDeDados()
 	fmt.Println("Iniciando servidor")
 	routes.HandleRequest()
 }

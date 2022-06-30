@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/tvianna/api-go-rest/database"
 	"strconv"
 	"github.com/gorilla/mux"
 	"github.com/tvianna/api-go-rest/models"
@@ -14,7 +15,9 @@ func Home(w http.ResponseWriter, r *http.Request){
 }
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request){
-	json.NewEncoder(w).Encode(models.Personalidades)
+	var p []models.Personalidade
+	database.DB.Find(&p)
+	json.NewEncoder(w).Encode(p)
 }
 
 func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request){
