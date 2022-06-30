@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"github.com/tvianna/api-go-rest/database"
-	"strconv"
 	"github.com/gorilla/mux"
 	"github.com/tvianna/api-go-rest/models"
 	"encoding/json"
@@ -23,10 +22,22 @@ func TodasPersonalidades(w http.ResponseWriter, r *http.Request){
 func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request){
 	vars := mux.Vars(r)
 	id := vars["id"]
+	var personalidade models.Personalidade
+	database.DB.First(&personalidade, id)
+	json.NewEncoder(w).Encode(personalidade)
+}
 
-	for _, personalidade := range models.Personalidades{
-		if strconv.Itoa(personalidade.Id) == id {
-			json.NewEncoder(w).Encode(personalidade)
-		}
-	}
+func CriaUmaNovaPersonalidade(w http.ResponseWriter, r *http.Request){
+	var novaPersonalidade models.Personalidade
+	json.NewDecoder(r.Body).Decode(&novaPersonalidade)
+	database.DB.Create(&novaPersonalidade)
+	json.NewEncoder(w).Encode(novaPersonalidade)
+}
+
+func DeletaUmaPersonalidade(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var personalidade models.Personalidade
+	database.DB.Delete(&personalidade, id)
+	json.NewEncoder(w).Encode(personalidade)
 }
