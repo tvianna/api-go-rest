@@ -55,7 +55,6 @@ $  go run main.go
 ```bash
 # body request example
   {
-    "id": 3,
     "nome": "Anitta 2.0",
     "historia": "A maior do Brasil. 2.0"
   }
